@@ -7,7 +7,7 @@ Research question: How does the weekly wage affect the cost of building a single
 Model Highlights: Analyzed count data with poisson and quasipoisson regression models. Additional analysis performed via ANOVA.
 
 Included files:
-  CSV Data File
-  RMD File
-  Knitted Word Document of R File
+  CSV Data File,
+  RMD File,
+  Knitted Word Document of R File,
   Power Point Presentation
