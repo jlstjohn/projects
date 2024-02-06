@@ -1,4 +1,4 @@
-This project was done for COMP441: Probability and Statistics 1 course.
+This project was done for COMP4441: Probability and Statistics 1 course.
 
 Collaborator: Gabriel Barela
 
