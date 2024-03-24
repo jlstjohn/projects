@@ -1,0 +1,139 @@
+# Adding foreign keys to tables:
+
+mysql> alter table partof
+    -> add foreign key (isbn)
+    -> references books(isbn);
+Query OK, 1 row affected (0.04 sec)
+Records: 1  Duplicates: 0  Warnings: 0
+
+mysql> alter table partof
+    -> add foreign key (name)
+    -> references series(name);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table timesread
+    -> add foreign key(isbn)
+    -> references books(isbn);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table isabout
+    -> add foreign key(isbn)
+    -> references books(isbn);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table isabout
+    -> add foreign key(subject)
+    -> references subject(subject);
+Query OK, 0 rows affected (0.44 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table wrote
+    -> add foreign key(isbn)
+    -> references books(isbn);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table wrote
+    -> add foreign key(name)
+    -> references author(name);
+Query OK, 0 rows affected (0.33 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table loaned
+    -> add foreign key(isbn)
+    -> references books(isbn);
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table loaned
+    -> add foreign key(name)
+    -> references person(name);
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+# Q1: Create an update that violates the foreign key constraint.
+# List the update command and then show the output of running this update.
+
+mysql> update books
+    -> set isbn = '7781509899470'
+    -> where isbn = '9781509899470';
+ERROR 1451 (23000): Cannot delete or update a parent row: a foreign key constraint
+fails (`homelibrary`.`isabout`, CONSTRAINT `isabout_ibfk_1` FOREIGN KEY (`isbn`) REFERENCES `books` (`isbn`))
+
+# Q2: Write a procedure or function and script that calls the procedure/function. The
+# procedure/function should include one or more inputs and an output. After calling
+# the procedure, print the results of the output. If the procedure/function makes
+# multiple database state changes, document the changes with before/after select commands
+# showing a (small) set of data that is changed. Include a description of what the
+# procedure/function does.
+# Procedure/function script attached in separate file. Output shown below.
+
+mysql> select @theNum as 'numBooks by Adam Kay';
++----------------------+
+| numBooks by Adam Kay |
++----------------------+
+|                    4 |
++----------------------+
+1 row in set (0.00 sec)
+
+# Q3: Create an index and show how it speeds up two types of queries: 1) a selection on a
+# single relation, and 2) a selection that involves a join.
+
+mysql> describe books;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| isbn  | varchar(20) | NO   | PRI | NULL    |       |
+| title | varchar(30) | NO   |     | NULL    |       |
+| pages | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+vs
+mysql> describe booksIndexed;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| isbn  | varchar(20) | NO   | MUL | NULL    |       |
+| title | varchar(30) | NO   |     | NULL    |       |
+| pages | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+# Q3 Part 1: my Indexed query was actually slower
+
+mysql> select avg(pages) from books where pages > 200;
++------------+
+| avg(pages) |
++------------+
+|   598.8488 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(pages) from booksIndexed where pages > 200;
++------------+
+| avg(pages) |
++------------+
+|   598.8488 |
++------------+
+1 row in set (0.01 sec)
+
+# Q4 Part 2:
+
+mysql> select count(b.title), max(b.pages) from books b, loaned l, timesread t where b.isbn = l.isbn and b.isbn = t.isbn and l.name = 'Freya';
++----------------+--------------+
+| count(b.title) | max(b.pages) |
++----------------+--------------+
+|            287 |          999 |
++----------------+--------------+
+1 row in set (0.02 sec)
+
+mysql> select count(b.title), max(b.pages) from booksIndexed b, loaned l, timesread t where b.isbn = l.isbn and b.isbn = t.isbn and l.name = 'Freya';
++----------------+--------------+
+| count(b.title) | max(b.pages) |
++----------------+--------------+
+|            287 |          999 |
++----------------+--------------+
+1 row in set (0.00 sec)

@@ -1,0 +1,277 @@
+# 1. Write three queries on your PDA database, using the select-from-where
+# construct of SQL
+
+# Query 1: Finds the names of people who have borrowed a book on
+# "Business-Finance-Law" that the owner has given a rating of greater than 9.
+
+mysql> select l.name from loaned l, isabout i, timesRead r where i.isbn = l.isbn and r.isbn = l.isbn and i.subject = "Business-Finance-Law" and r.rating > 9;
++----------+
+| name     |
++----------+
+| Hercules |
+| Alice    |
+| Charlie  |
+| Bob      |
+| Alice    |
+| Bob      |
+| David    |
+| Hercules |
+| Gaston   |
+| David    |
++----------+
+10 rows in set (0.01 sec)
+
+#Query 2: Finds the average number of times each rating group has been read.
+
+mysql> select r.rating,avg(r.timesRead) from timesRead r group by r.rating;
++--------+------------------+
+| rating | avg(r.timesRead) |
++--------+------------------+
+|     10 |          10.6963 |
+|      6 |          10.5937 |
+|      7 |          10.5145 |
+|      9 |          10.5617 |
+|      3 |          10.4147 |
+|      1 |          10.4274 |
+|      5 |          10.6518 |
+|      4 |          10.6256 |
+|      2 |          10.3296 |
+|      8 |          10.4997 |
+|      0 |          10.4196 |
++--------+------------------+
+11 rows in set (0.01 sec)
+
+# Query 3: Finds the name of each person who borrowed a book with a rating greater
+# than 8 at least one time, and tells you how many times they did so.
+
+mysql> select p.name, count(*) from person p, timesRead r, loaned l where l.isbn = r.isbn and
+l.name = p.name and r.rating > 8 group by p.name having count(*) >= 1;
++----------+------------------+
+| name     | count(p.dateOut) |
++----------+------------------+
+| Bob      |               48 |
+| Elsa     |               57 |
+| Hercules |               59 |
+| Alice    |               55 |
+| Gaston   |               47 |
+| Freya    |               54 |
+| David    |               53 |
+| Charlie  |               48 |
++----------+------------------+
+8 rows in set (0.01 sec)
+
+# 2. Write three data-modification commands on your PDA database.
+
+# Simple insert command
+
+mysql> select s.subject from subject s;
++----------------------+
+| subject              |
++----------------------+
+| Art-Photography      |
+| Biography            |
+| Business-Finance-Law |
+| category             |
+| Childrens-Books      |
+| Computing            |
+| Crafts-Hobbies       |
+| Crime-Thriller       |
+| Dictionaries-Languag |
+| Entertainment        |
+| Food-Drink           |
+| Graphic-Novels-Anime |
+| Health               |
+| History-Archaeology  |
+| Home-Garden          |
+| Humour               |
+| Medical              |
+| Mind-Body-Spirit     |
+| Natural-History      |
+| Personal-Development |
+| Poetry-Drama         |
+| Reference            |
+| Religion             |
+| Romance              |
+| Science-Fiction-Fant |
+| Science-Geography    |
+| Society-Social-Scien |
+| Sport                |
+| Stationery           |
+| Teaching-Resources-E |
+| Technology-Engineeri |
+| Teen-Young-Adult     |
+| Transport            |
+| Travel-Holiday-Guide |
++----------------------+
+34 rows in set (0.00 sec)
+
+mysql> insert into subject values('Misc', 'random things');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select s.subject from subject s;
++----------------------+
+| subject              |
++----------------------+
+| Art-Photography      |
+| Biography            |
+| Business-Finance-Law |
+| category             |
+| Childrens-Books      |
+| Computing            |
+| Crafts-Hobbies       |
+| Crime-Thriller       |
+| Dictionaries-Languag |
+| Entertainment        |
+| Food-Drink           |
+| Graphic-Novels-Anime |
+| Health               |
+| History-Archaeology  |
+| Home-Garden          |
+| Humour               |
+| Medical              |
+| Mind-Body-Spirit     |
+| Misc                 |    ## new insert appears here
+| Natural-History      |
+| Personal-Development |
+| Poetry-Drama         |
+| Reference            |
+| Religion             |
+| Romance              |
+| Science-Fiction-Fant |
+| Science-Geography    |
+| Society-Social-Scien |
+| Sport                |
+| Stationery           |
+| Teaching-Resources-E |
+| Technology-Engineeri |
+| Teen-Young-Adult     |
+| Transport            |
+| Travel-Holiday-Guide |
++----------------------+
+35 rows in set (0.00 sec)
+
+# Simple update
+
+mysql> select * from person;
++----------+------------+--------------+
+| name     | dateOut    | dateReturned |
++----------+------------+--------------+
+| Alice    | 2020-01-01 | 2020-10-05   |
+| Bob      | 2020-01-07 | 2020-02-12   |
+| Charlie  | 2020-01-02 | 2020-01-12   |
+| David    | 2020-01-05 | 2020-03-05   |
+| Elsa     | 2020-01-04 | 2020-10-05   |
+| Freya    | 2020-01-05 | 2020-02-12   |
+| Gaston   | 2020-01-04 | 2020-03-05   |
+| Hercules | 2020-01-03 | 2020-02-12   |
++----------+------------+--------------+
+8 rows in set (0.00 sec)
+
+mysql> update person set dateReturned = '2020-05-10' where name = 'Alice' and dateOut = '2020-01-01';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from person;
++----------+------------+--------------+
+| name     | dateOut    | dateReturned |
++----------+------------+--------------+
+| Alice    | 2020-01-01 | 2020-05-10   |
+| Bob      | 2020-01-07 | 2020-02-12   |
+| Charlie  | 2020-01-02 | 2020-01-12   |
+| David    | 2020-01-05 | 2020-03-05   |
+| Elsa     | 2020-01-04 | 2020-10-05   |
+| Freya    | 2020-01-05 | 2020-02-12   |
+| Gaston   | 2020-01-04 | 2020-03-05   |
+| Hercules | 2020-01-03 | 2020-02-12   |
++----------+------------+--------------+
+8 rows in set (0.00 sec)
+
+# Updates multiple tuples at once
+
+mysql> select s.summary from subject s;
++--------------------------------------+
+| summary                              |
++--------------------------------------+
+                 |979
+                       |
+            |nance-Law3949
+                           |
+                 |938
+                       |
+                  |1
+                  |1
+          |ies-Languages8889
+                   |
+                     |
+     |hic-Novels-Anime-Manga11841
+                         |
+            |haeology13818
+                    |
+                         |
+                            |
+               |it16785
+| random things                        |
+                |17774
+           |evelopment18763
+                   |
+                      |
+                       |
+                        |
+ |Science-Fiction-Fantasy-Horror23694
+                |hy990
+        |-Social-Sciences24683
+                          |
+                     |
+   |aching-Resources-Education27645
+         |gy-Engineering28627
+               |lt29614
+                      |
+          |liday-Guides31593
++--------------------------------------+
+35 rows in set (0.00 sec)
+
+mysql> update subject set summary = 'needs fixed' where summary != 'random things';
+Query OK, 34 rows affected (0.01 sec)
+Rows matched: 34  Changed: 34  Warnings: 0
+
+mysql> select s.summary from subject s;
++---------------+
+| summary       |
++---------------+
+| needs fixed   |
+| needs fixed   |
+| needs fixed   |
+| needs fixed   |
+| needs fixed   |
+| needs fixed   |
+| needs fixed   |
+| needs fixed   |
+| needs fixed   |
+| needs fixed   |
+| needs fixed   |
+| needs fixed   |
+| needs fixed   |
+| needs fixed   |
+| needs fixed   |
+| needs fixed   |
+| needs fixed   |
+| needs fixed   |
+| random things |
+| needs fixed   |
+| needs fixed   |
+| needs fixed   |
+| needs fixed   |
+| needs fixed   |
+| needs fixed   |
+| needs fixed   |
+| needs fixed   |
+| needs fixed   |
+| needs fixed   |
+| needs fixed   |
+| needs fixed   |
+| needs fixed   |
+| needs fixed   |
+| needs fixed   |
+| needs fixed   |
++---------------+
+35 rows in set (0.00 sec)
