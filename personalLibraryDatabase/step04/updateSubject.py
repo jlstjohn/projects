@@ -22,7 +22,7 @@ logger.addHandler(sh)
 # set up the mysql connection
 mydb = mysql.connector.connect(
     user = 'root',
-    passwd = 'ten10ten',
+    passwd = '****',
     database = 'homelibrary',
     host = '127.0.0.1',
     allow_local_infile = '1'
