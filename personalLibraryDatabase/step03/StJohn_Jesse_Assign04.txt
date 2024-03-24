@@ -1,0 +1,463 @@
+mysql> source C:\Users\farrj\Documents\Scripts\COMP3421\Database Project Resources\PDAStep3.sql
+Query OK, 0 rows affected (0.00 sec)
+
++--------------------+
+| Database           |
++--------------------+
+| homelibrary        |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
+| test               |
+| test3              |
+| test4              |
+| test5              |
++--------------------+
+9 rows in set (0.01 sec)
+
+Database changed
++-----------------------+
+| Tables_in_homelibrary |
++-----------------------+
+| author                |
+| books                 |
+| isabout               |
+| loaned                |
+| partof                |
+| person                |
+| series                |
+| subject               |
+| timesread             |
+| wrote                 |
++-----------------------+
+10 rows in set (0.01 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
++------------------------------+
+|                              |
++------------------------------+
+| loading data in table Books: |
++------------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 22711 rows affected, 49585 warnings (0.68 sec)
+Records: 32584  Deleted: 0  Skipped: 9873  Warnings: 49585
+
++-------------------------------+
+|                               |
++-------------------------------+
+| loading data in table Author: |
++-------------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 11800 rows affected, 740 warnings (0.16 sec)
+Records: 11809  Deleted: 0  Skipped: 9  Warnings: 740
+
++-------------------------------+
+|                               |
++-------------------------------+
+| loading data in table Series: |
++-------------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 1 row affected, 2 warnings (0.01 sec)
+Records: 1  Deleted: 0  Skipped: 0  Warnings: 2
+
++--------------------------------+
+|                                |
++--------------------------------+
+| loading data in table Subject: |
++--------------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 34 rows affected, 39460 warnings (0.14 sec)
+Records: 32582  Deleted: 0  Skipped: 32548  Warnings: 39460
+
++-------------------------------+
+|                               |
++-------------------------------+
+| loading data in table Person: |
++-------------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 8 rows affected, 4742 warnings (0.02 sec)
+Records: 2250  Deleted: 0  Skipped: 2242  Warnings: 4742
+
++------------------------------+
+|                              |
++------------------------------+
+| loading data in table Wrote: |
++------------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 22709 rows affected, 43757 warnings (0.66 sec)
+Records: 32582  Deleted: 0  Skipped: 9873  Warnings: 43757
+
++-------------------------------+
+|                               |
++-------------------------------+
+| loading data in table partOf: |
++-------------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 1 row affected (0.01 sec)
+Records: 1  Deleted: 0  Skipped: 0  Warnings: 0
+
++--------------------------------+
+|                                |
++--------------------------------+
+| loading data in table isAbout: |
++--------------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 32568 rows affected, 8902 warnings (0.51 sec)
+Records: 32582  Deleted: 0  Skipped: 14  Warnings: 8902
+
++----------------------------------+
+|                                  |
++----------------------------------+
+| loading data in table timesRead: |
++----------------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 22709 rows affected, 9873 warnings (0.50 sec)
+Records: 32582  Deleted: 0  Skipped: 9873  Warnings: 9873
+
++-------------------------------+
+|                               |
++-------------------------------+
+| loading data in table Loaned: |
++-------------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 2230 rows affected, 2270 warnings (0.04 sec)
+Records: 2250  Deleted: 0  Skipped: 20  Warnings: 2270
+
++---------------------------------+
+|                                 |
++---------------------------------+
+| show tables after data loading: |
++---------------------------------+
+1 row in set (0.00 sec)
+
++-----------------------+
+| Tables_in_homelibrary |
++-----------------------+
+| author                |
+| books                 |
+| isabout               |
+| loaned                |
+| partof                |
+| person                |
+| series                |
+| subject               |
+| timesread             |
+| wrote                 |
++-----------------------+
+10 rows in set (0.00 sec)
+
++--------------------------------------+
+|                                      |
++--------------------------------------+
+| describing table name for each table |
++--------------------------------------+
+1 row in set (0.00 sec)
+
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| isbn  | varchar(20) | NO   | PRI | NULL    |       |
+| title | varchar(30) | NO   |     | NULL    |       |
+| pages | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| name  | varchar(20) | NO   | PRI | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+1 row in set (0.00 sec)
+
++-----------+--------------+------+-----+---------+-------+
+| Field     | Type         | Null | Key | Default | Extra |
++-----------+--------------+------+-----+---------+-------+
+| name      | varchar(20)  | NO   | PRI | NULL    |       |
+| summary   | varchar(140) | NO   |     | NULL    |       |
+| placement | int          | YES  |     | NULL    |       |
+| outOf     | int          | YES  |     | NULL    |       |
++-----------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| subject | varchar(20)  | NO   | PRI | NULL    |       |
+| summary | varchar(140) | NO   |     | NULL    |       |
++---------+--------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| name         | varchar(20) | NO   | PRI | NULL    |       |
+| dateOut      | date        | YES  |     | NULL    |       |
+| dateReturned | date        | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| isbn  | varchar(20) | NO   | PRI | NULL    |       |
+| name  | varchar(20) | NO   | PRI | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| isbn  | varchar(20) | NO   | PRI | NULL    |       |
+| name  | varchar(20) | NO   | PRI | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| isbn    | varchar(20) | NO   | PRI | NULL    |       |
+| subject | varchar(20) | NO   | PRI | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| isbn      | varchar(20) | NO   | PRI | NULL    |       |
+| timesRead | int         | YES  |     | NULL    |       |
+| rating    | int         | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| isbn  | varchar(20) | NO   | PRI | NULL    |       |
+| name  | varchar(20) | NO   | PRI | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
++---------------------------+
+|                           |
++---------------------------+
+| running count(*) on Books |
++---------------------------+
+1 row in set (0.00 sec)
+
++----------+
+| count(*) |
++----------+
+|    22714 |
++----------+
+1 row in set (0.01 sec)
+
++----------------------------+
+|                            |
++----------------------------+
+| running count(*) on Author |
++----------------------------+
+1 row in set (0.00 sec)
+
++----------+
+| count(*) |
++----------+
+|    11800 |
++----------+
+1 row in set (0.00 sec)
+
++----------------------------+
+|                            |
++----------------------------+
+| running count(*) on Series |
++----------------------------+
+1 row in set (0.00 sec)
+
++----------+
+| count(*) |
++----------+
+|        1 |
++----------+
+1 row in set (0.00 sec)
+
++-----------------------------+
+|                             |
++-----------------------------+
+| running count(*) on Subject |
++-----------------------------+
+1 row in set (0.00 sec)
+
++----------+
+| count(*) |
++----------+
+|       34 |
++----------+
+1 row in set (0.00 sec)
+
++----------------------------+
+|                            |
++----------------------------+
+| running count(*) on Person |
++----------------------------+
+1 row in set (0.00 sec)
+
++----------+
+| count(*) |
++----------+
+|        8 |
++----------+
+1 row in set (0.00 sec)
+
++---------------------------+
+|                           |
++---------------------------+
+| running count(*) on Wrote |
++---------------------------+
+1 row in set (0.00 sec)
+
++----------+
+| count(*) |
++----------+
+|    22709 |
++----------+
+1 row in set (0.00 sec)
+
++----------------------------+
+|                            |
++----------------------------+
+| running count(*) on partOf |
++----------------------------+
+1 row in set (0.00 sec)
+
++----------+
+| count(*) |
++----------+
+|        1 |
++----------+
+1 row in set (0.00 sec)
+
++-----------------------------+
+|                             |
++-----------------------------+
+| running count(*) on isAbout |
++-----------------------------+
+1 row in set (0.00 sec)
+
++----------+
+| count(*) |
++----------+
+|    32568 |
++----------+
+1 row in set (0.00 sec)
+
++-------------------------------+
+|                               |
++-------------------------------+
+| running count(*) on timesRead |
++-------------------------------+
+1 row in set (0.00 sec)
+
++----------+
+| count(*) |
++----------+
+|    22709 |
++----------+
+1 row in set (0.00 sec)
+
++----------------------------+
+|                            |
++----------------------------+
+| running count(*) on Loaned |
++----------------------------+
+1 row in set (0.00 sec)
+
++----------+
+| count(*) |
++----------+
+|     2230 |
++----------+
+1 row in set (0.00 sec)
+
++--------------------------------------------------------+
+|                                                        |
++--------------------------------------------------------+
+| running 10 select commands that will return <10 tuples |
++--------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from Books B where B.pages < 100;
++---------------+--------------------------------+-------+
+| isbn          | title                          | pages |
++---------------+--------------------------------+-------+
+|               |                                |     0 |
+| 8051272892703 | Moleskine Classic Notebook     |     0 |
+| 8051272892727 | Moleskine Classic Notebook     |     0 |
+| 8051272892734 | Moleskine Classic Notebook     |     0 |
+.
+......
+.
+| 9788866139690 | Moleskine Black Pencils - 2 Pe |     0 |
+| 9788898433001 | The Italian Project            |     0 |
+| 9789491643248 | Unicorns                       |     0 |
+| 9789671000359 | Music Theory for Young Musicia |     0 |
+| 9789679856040 | Music Theory Made Easy for Kid |     0 |
++---------------+--------------------------------+-------+
+1352 rows in set (0.01 sec)     ## This gave a lot more than 10 tuples for an answer, but was informative
+                                ## in that my generated page data included 0's somehow, and does not make sense
+
+mysql> select * from Person P where P.dateOut ='2020-01-01';
++-------+------------+--------------+
+| name  | dateOut    | dateReturned |
++-------+------------+--------------+
+| Alice | 2020-01-01 | 2020-10-05   |
++-------+------------+--------------+
+1 row in set (0.00 sec)
+
+mysql> select * from isAbout A where A.subject = 'Sport';
+Empty set (0.01 sec)
+
+mysql> select * from Author A where A.name = 'Vicki Pipe';
+Empty set (0.00 sec)
+
+mysql> select * from Author A where A.name = "Kat Davis";
+Empty set (0.00 sec)
+
+mysql> select * from Author A where A.name = 'David Abram';
+Empty set (0.00 sec)
+
+## The above four queries should return at least one answer, so I'm not sure what is going on. But there were
+## also a bunch of warning messages when I loaded the data in, that I wasn't sure how to check, is it possible
+## the issue could be tied to that somehow?
+
+mysql> select * from Subject S where S.subject = 'Sport';
++---------+-------------+
+| subject | summary     |
++---------+-------------+
+ |Sport   | Sport25672
++---------+-------------+
+1 row in set (0.00 sec)
+
+## Go back and double check generated code for this table, may have done overkill since
+## 'subject' is a KEY attribute in this table and thus will only have one entry with one summary
+
+mysql> select * from Wrote W where W.isbn = '8051272892703';
++---------------+------+
+| isbn          | name |
++---------------+------+
+| 8051272892703 |      |
++---------------+------+
+1 row in set (0.00 sec)
+
+## Something is going wrong with the Author table, as it is needed for the Wrote relation
+## but I must have messed up the join in the python programming
