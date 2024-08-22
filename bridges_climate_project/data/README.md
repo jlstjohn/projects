@@ -1,0 +1,1 @@
+Due to the number of files/size of files/size of file when all files merged together and limited computing resources, data cleaning was done in multiple steps. This resulted in multiple save files of the data along the way. While this was cumbersome and not ideal, it was the best way to maintain consistency and avoid data loss if crashes did occur.
