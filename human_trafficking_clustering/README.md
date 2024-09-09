@@ -6,6 +6,6 @@ Human trafficking continues to be a growing global problem despite increased int
 ## Result:
 The dataset has a large amount of null (missing) information. This, along with weak silhoutte scores, makes any result found from the KMeans clustering performed to be less dependable. It's possible another clustering algorithm would perform better or that different data preparation methods should be used to account for the vast amounts of unusable data.
 
-##Included Files:
+## Included Files:
 - Databricks source python file
 - humanTraffickingWriteUp: short paper with background, KMeans model information, results, and conclusion
